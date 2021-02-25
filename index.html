@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+    // Your JavaScript goes here!
+    //Variable declaration
+    let userSelection = "";
+    let computerSelection = "";
+    let result = "";
+    let userScore = 0;
+    let computerScore = 0;
+    //computerPlay will generate random computer selection and return its value (ROCK, PAPER or SCISSOR)
+    function computerPlay(){
+        let randomNumber = Math.floor(Math.random() * 10);
+        if (randomNumber<4)
+        {
+            return ("ROCK");
+        }
+        else if (randomNumber<8)
+        {
+            return ("PAPER");
+        }
+        else{
+            return ("SCISSOR");
+        }
+    }
+    //singleGame receives user and computer selection then decide who is the winner.
+    //return "win" if user win
+    //return "lose" if user lose
+    //return "draw" if it is a draw
+    //it also check if user input is not in the correct term and return "wrong"
+    function singleGame(userSelection, computerSelection){
+        if(userSelection.toUpperCase()==computerSelection.toUpperCase())
+        {
+            return("draw");
+        }
+        else if(userSelection.toUpperCase()=="ROCK"){
+            if(computerSelection.toUpperCase()=="SCISSOR"){
+                return("win");
+            }
+            else if(computerSelection.toUpperCase()=="PAPER"){
+                return("lose");
+            }
+        }
+        else if(userSelection.toUpperCase()=="SCISSOR"){
+            if(computerSelection.toUpperCase()=="PAPER"){
+                return("win");
+            }
+            else if(computerSelection.toUpperCase()=="ROCK"){
+                return("lose");
+            }
+        }
+        else if(userSelection.toUpperCase()=="PAPER"){
+            if(computerSelection.toUpperCase()=="ROCK"){
+                return("win");
+            }
+            else if(computerSelection.toUpperCase()=="SCISSOR"){
+                return("lose");
+            }
+        }
+        else{
+            return("wrong")
+        }
+    }
+
+    /******************************************
+     *              Main program
+     * ***************************************/
+    //Inform user how to play the rock, paper, scissor and how to win the game.
+    console.log("Choose either rock, paper, scissor to play aginst the computer!\nYou have 5 chances. Good Luck!");
+    //Repeat this section 5 times
+    for(let i = 0; i<5; i++){
+        userSelection = prompt("Your choice: ").toUpperCase();  //Ask user to input their selection (it must be case insensitive)
+        computerSelection = computerPlay().toUpperCase();       //Generate random computer selection (use function called computerPlay)
+        result = singleGame(userSelection,computerSelection);   //Compare user and computer selection to decide who win the round
+        //Return the winner and handle wrong input
+        if(result != "wrong"){
+            console.log("You " + result + "! " + userSelection + " " + result + " versus " + computerSelection +"!");
+        }
+        else{
+            console.log("I don't know "+userSelection+" try: ROCK, SCISSOR or PAPER.");
+            i--;
+        }
+        //Calculate the scores on put it on the console log        
+        if(result == "win"){userScore++;}
+        else if(result == "lose"){computerScore++;}
+        else{}
+        console.log("You: " + userScore + " vs " + computerScore + " :Computer");
+        //Display chances left
+        if(i!=4){
+            console.log((4-i)+ " chances left!");
+        }
+    }
+    //Show the results
+    if(userScore == computerScore){console.log("Not bad, it's a draw!")}
+    else if(userScore>computerScore){console.log("Good job! You WIN!!!")}
+    else {console.log("Unlucky, have a good luck next time!")}
+  </script>
+</body>
+</html>
